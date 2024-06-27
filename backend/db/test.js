@@ -3,4 +3,4 @@ const test = () => {
     console.log("hi");
 }
 
-export default test;
+module.exports = test;

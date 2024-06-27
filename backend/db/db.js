@@ -1,4 +1,4 @@
-import pg from "pg";
+const pg = require("pg");
 
 const db = new pg.Pool({
     user: process.env.DB_USER,
@@ -8,4 +8,4 @@ const db = new pg.Pool({
     port: process.env.DB_PORT,
 })
 
-export default db;
+module.exports = db;
