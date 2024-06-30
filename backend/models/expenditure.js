@@ -27,6 +27,7 @@ const Expenditure = sequelize.define("Expenditure", {
     },
     category: {
         type: Sequelize.TEXT,
+        allowNull: false,
     },
 });
 

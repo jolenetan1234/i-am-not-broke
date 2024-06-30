@@ -1,6 +1,6 @@
 const Expenditure = require("../models/expenditure.js");
-// const { fn, col, where } = require("sequelize");
 const Sequelize = require("sequelize");
+// const { fn, col, where } = require("sequelize");
 
 const getExpenditureByMonth = async (req, res) => {
     try {
