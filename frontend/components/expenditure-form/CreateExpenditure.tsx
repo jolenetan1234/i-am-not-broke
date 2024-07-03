@@ -85,7 +85,7 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
     e.preventDefault();
 
     if (transactionType === "expenditure") {
-      data.amount = -data.amount;
+      data.amount = -Math.abs(data.amount);
     };
 
     console.log(transactionType, data);
@@ -117,11 +117,11 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
 
     }
 
-    if (isEdit) {
-      putData();
-    } else {
-      postData();
-    }
+    // if (isEdit) {
+    //   putData();
+    // } else {
+    //   postData();
+    // }
   };
 
   return (
@@ -143,6 +143,7 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
 
           <select 
           id="transactionType"
+          
           required
           onChange={handleTransactionType}
           className="input-style"

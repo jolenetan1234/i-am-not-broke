@@ -29,6 +29,10 @@ const Expenditure = sequelize.define("Expenditure", {
         type: Sequelize.TEXT,
         allowNull: false,
     },
+    transaction_type: {
+        type: Sequelize.ENUM('expenditure', 'earning'),
+        allowNull: false,
+    },
 });
 
 module.exports = Expenditure;
