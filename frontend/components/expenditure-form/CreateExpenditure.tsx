@@ -115,9 +115,27 @@ const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClos
     };
 
     const putData = async () => {
+      console.log(`Sending PUT request for id ${id}`);
+      
       try {
         const res = await axios.put(`http://localhost:8000/api/expt/${id}`, data);
+
         console.log(`Successfully updated id ${id}`, res);
+
+        // reset `data` to initial state
+        setData({
+          title: "",
+          date: "",
+          amount: 0,
+          category: "others",
+          description: "",
+          transaction_type: "expenditure",
+        });
+
+        handleUpdate(); // PUT HERE INSTEAD OF BELOW `onSubmit`.
+
+        handleClose();
+
       } catch (err) {
         console.log(`Failed to update id ${id}`, err);
       };
@@ -139,8 +157,8 @@ const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClos
       className="form" 
       onSubmit={(e) => {
         handleSubmit(e);
-        handleUpdate();
-        handleClose();
+        // handleUpdate();
+        // handleClose();
       }}>
         {/* transaction type */}
         <div className="mb-5">

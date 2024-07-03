@@ -6,7 +6,8 @@ const SubmitButton = ({ isEdit = false }) => {
         <div className="flex justify-center">
             <button 
             type="submit"
-            className="submit-button">
+            className="submit-button"
+            >
               {isEdit ? (
                 "Save"
               ) : (

@@ -11,9 +11,11 @@ const ShowExpenditures = ({ isHome = false }) => {
     const [del, setDel] = useState(false);
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(false);
-    const [id, setId] = useState(0);
+    const [id, setId] = useState("");
 
     useEffect(() => {
+        console.log("Fetching data for ShowExpenditures.tsx");
+
         const fetchData = async () => {
             try {
                 const res = await axios.get("http://localhost:8000/api/expt");
@@ -57,6 +59,7 @@ const ShowExpenditures = ({ isHome = false }) => {
     }
 
     const handleClose = () => {
+        setId("");
         setOpen(false);
     }
 
