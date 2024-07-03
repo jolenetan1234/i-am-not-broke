@@ -5,6 +5,7 @@ export interface Expenditure {
     amount: number;
     category: string;
     description?: string;
+    transaction_type: "expenditure" | "earning";
 };
 
 export type NewExpenditure = Omit<Expenditure, "id">;

@@ -52,9 +52,13 @@ const ShowExpenditures = ({ isHome = false }) => {
         setId(id);
     };
 
-    const handleChange = () => {
-        console.log("handleChange");
-    };
+    const handleUpdate = () => {
+        setUpdate(!update);
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     return (
         <div className="ShowExpenditures">
@@ -62,12 +66,12 @@ const ShowExpenditures = ({ isHome = false }) => {
             <div className="ExpenditureList">
             {/* map each expt to its own card */}
             {expenditures.map((expt) => (
-                <ExpenditureCard key={expt.id} expt={expt} handleDelete={handleDelete} handleEdit={handleEdit} handleChange={handleChange}/>
+                <ExpenditureCard key={expt.id} expt={expt} handleDelete={handleDelete} handleEdit={handleEdit} />
             ))}
             </div>
 
             {open ? (
-                <EditForm id={id} open={open}/>
+                <EditForm id={id} handleUpdate={handleUpdate} handleClose={handleClose} />
             ) : (
                 ""
             )}

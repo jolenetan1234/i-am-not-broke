@@ -6,7 +6,7 @@ import { NewExpenditure } from "@/types/expenditure";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 
-const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
+const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClose }) => {
   const expenditureCategories = [
     { value: "dining", label: "Dining" },
     { value: "entertainment", label: "Entertainment/Leisure" },
@@ -34,9 +34,8 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
     amount: 0,
     category: "others",
     description: "",
+    transaction_type: "expenditure",
   });
-
-  const [transactionType, setTransactionType] = useState("expenditure");
 
   const [categories, setCategories] = useState(expenditureCategories);
 
@@ -57,6 +56,7 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
             amount: res.data[0].amount,
             category: res.data[0].category,
             description: res.data[0].description,
+            transaction_type: res.data[0].transaction_type,
           });
           
         } catch (err) {
@@ -76,19 +76,20 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
   };
 
   const handleTransactionType = (e) => {
-    setTransactionType(e.target.value);
+    data.transaction_type = e.target.value;
+    // setTransactionType(e.target.value);
     setCategories(e.target.value === "expenditure" ? expenditureCategories : earningCategories);
-    console.log(`transactionType: ${e.target.value}`);
+    console.log(`transaction_type: ${e.target.value}`);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (transactionType === "expenditure") {
+    if (data.transaction_type === "expenditure") {
       data.amount = -Math.abs(data.amount);
     };
 
-    console.log(transactionType, data);
+    console.log("Data to be sent:", data);
 
     const postData = async () => {
       try {
@@ -101,6 +102,7 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
           amount: 0,
           category: "others",
           description: "",
+          transaction_type: "expenditure",
         });
 
         console.log("Successfully created expenditure", res);
@@ -113,15 +115,19 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
     };
 
     const putData = async () => {
-      console.log("putData");
+      try {
+        const res = await axios.put(`http://localhost:8000/api/expt/${id}`, data);
+        console.log(`Successfully updated id ${id}`, res);
+      } catch (err) {
+        console.log(`Failed to update id ${id}`, err);
+      };
+    };
 
-    }
-
-    // if (isEdit) {
-    //   putData();
-    // } else {
-    //   postData();
-    // }
+    if (isEdit) {
+      putData();
+    } else {
+      postData();
+    };
   };
 
   return (
@@ -131,7 +137,11 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
       {/* form */}
       <form 
       className="form" 
-      onSubmit={handleSubmit}>
+      onSubmit={(e) => {
+        handleSubmit(e);
+        handleUpdate();
+        handleClose();
+      }}>
         {/* transaction type */}
         <div className="mb-5">
           <label 
@@ -143,7 +153,7 @@ const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
 
           <select 
           id="transactionType"
-          
+          value={data.transaction_type}
           required
           onChange={handleTransactionType}
           className="input-style"

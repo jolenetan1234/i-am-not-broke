@@ -1,7 +1,7 @@
 import DeleteButton from "../interactive/DeleteButton";
 import EditButton from "../interactive/EditButton";
 
-const ExpenditureCard = ({ expt, handleDelete, handleEdit, handleChange}) => {
+const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
   return (
     // wrapper div
     <div className="ExpenditureCard">
