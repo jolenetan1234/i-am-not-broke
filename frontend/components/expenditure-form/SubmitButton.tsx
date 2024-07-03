@@ -1,13 +1,17 @@
 import React from 'react'
 
-const SubmitButton = () => {
+const SubmitButton = ({ isEdit = false }) => {
   return (
     <div className="SubmitButton">
         <div className="flex justify-center">
             <button 
             type="submit"
             className="submit-button">
-            Create transaction
+              {isEdit ? (
+                "Save"
+              ) : (
+                "Create transaction"
+              )}
             </button>
         </div>
     </div>

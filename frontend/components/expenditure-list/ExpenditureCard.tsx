@@ -1,7 +1,7 @@
 import DeleteButton from "../interactive/DeleteButton";
 import EditButton from "../interactive/EditButton";
 
-const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
+const ExpenditureCard = ({ expt, handleDelete, handleEdit, handleChange}) => {
   return (
     // wrapper div
     <div className="ExpenditureCard">
@@ -15,12 +15,26 @@ const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
 
                         {/* title + amount */}
                             <div className="w-auto p-2">
-                                <h2 className="expt-card-title">{expt.title}</h2>
-                                <h3 className="expt-card-detail">{+expt.amount > 0 ? (
-                                    `+${expt.amount}`
+                                
+                                <h2 className="expt-card-title">
+                                    {expt.title}
+                                </h2>
+                                
+                                {/* {open ? (
+                                    <input type="text" className="expt-card-title" onChange={handleChange}/>
                                 ) : (
+                                    <h2 className="expt-card-title">
+                                        {expt.title}
+                                    </h2>
+                                )} */}
+
+                                <h3 className="expt-card-detail">
+                                    {+expt.amount > 0 ? (
+                                    `+${expt.amount}`
+                                    ) : (
                                     `${expt.amount}`
-                                )}</h3>
+                                    )}
+                                </h3>
                             </div>
                         </div>
                     </div>

@@ -4,11 +4,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ExpenditureCard from "./ExpenditureCard";
 import { Expenditure } from "@/types/expenditure";
+import EditForm from "../expenditure-form/EditForm";
 
 const ShowExpenditures = ({ isHome = false }) => {
     const [expenditures, setExpenditures] = useState<Expenditure[]>([]);
-
     const [del, setDel] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [update, setUpdate] = useState(false);
+    const [id, setId] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +29,7 @@ const ShowExpenditures = ({ isHome = false }) => {
         };
 
         fetchData();
-    }, [del, ]);
+    }, [del, update]);
 
     const handleDelete = (id) => {
         const deleteData = async () => {
@@ -44,15 +47,30 @@ const ShowExpenditures = ({ isHome = false }) => {
 
     const handleEdit = (id) => {
         console.log(id);
-    }
+        // set `open` to `true`, to render a different version of `ExpenditureCard`
+        setOpen(true);
+        setId(id);
+    };
+
+    const handleChange = () => {
+        console.log("handleChange");
+    };
 
     return (
         <div className="ShowExpenditures">
             
+            <div className="ExpenditureList">
             {/* map each expt to its own card */}
             {expenditures.map((expt) => (
-                <ExpenditureCard key={expt.id} expt={expt} handleDelete={handleDelete} handleEdit={handleEdit}/>
+                <ExpenditureCard key={expt.id} expt={expt} handleDelete={handleDelete} handleEdit={handleEdit} handleChange={handleChange}/>
             ))}
+            </div>
+
+            {open ? (
+                <EditForm id={id} open={open}/>
+            ) : (
+                ""
+            )}
 
         </div>
     );

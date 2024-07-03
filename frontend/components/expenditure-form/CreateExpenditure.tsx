@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { NewExpenditure } from "@/types/expenditure";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 
-const CreateExpenditure = () => {
+const CreateExpenditure = ({ isEdit = false, id = null, open=false }) => {
   const expenditureCategories = [
     { value: "dining", label: "Dining" },
     { value: "entertainment", label: "Entertainment/Leisure" },
@@ -40,6 +40,36 @@ const CreateExpenditure = () => {
 
   const [categories, setCategories] = useState(expenditureCategories);
 
+  // IF `isEdit`, FETCH EXISTING ENTRY
+  if (isEdit) {
+    useEffect(() => {
+      // const fetchData = await axios.get(`http://localhost:8000/api/expt/`)
+      console.log(`fetching data for id ${id}`);
+
+      const fetchData = async () => {
+        try {
+          const res = await axios.get(`http://localhost:8000/api/expt/${id}`);
+          console.log(`Successfully fetched data for id ${id}`, res.data[0]);
+
+          setData({
+            title: res.data[0].title,
+            date: res.data[0].date,
+            amount: res.data[0].amount,
+            category: res.data[0].category,
+            description: res.data[0].description,
+          });
+          
+        } catch (err) {
+          console.log(`Failed to fetch data for id ${id}`, err);
+        }; 
+      };
+
+    fetchData();
+
+    }, []);
+  };
+
+  // handlers
   const handleChange = (e) => {
     setData((data) => ({ ...data, [e.target.name]: e.target.value }));
     console.log(`${e.target.name}: ${e.target.value}`);
@@ -58,7 +88,7 @@ const CreateExpenditure = () => {
       data.amount = -data.amount;
     };
 
-    console.log("data", data);
+    console.log(transactionType, data);
 
     const postData = async () => {
       try {
@@ -82,15 +112,26 @@ const CreateExpenditure = () => {
       };
     };
 
-    postData();
+    const putData = async () => {
+      console.log("putData");
+
+    }
+
+    if (isEdit) {
+      putData();
+    } else {
+      postData();
+    }
   };
 
   return (
-    <div className="CreateExpenditure">
-
+    <div className={ isEdit ? ("EditExpenditure border bg-white dark:bg-zinc-900") : ("CreateExpenditure")}>
+      
       <div className="w-4/5 m-auto">
       {/* form */}
-      <form className="form" onSubmit={handleSubmit}>
+      <form 
+      className="form" 
+      onSubmit={handleSubmit}>
         {/* transaction type */}
         <div className="mb-5">
           <label 
@@ -102,7 +143,7 @@ const CreateExpenditure = () => {
 
           <select 
           id="transactionType"
-          required 
+          required
           onChange={handleTransactionType}
           className="input-style"
           >
@@ -126,6 +167,7 @@ const CreateExpenditure = () => {
           id="title"
           name="title"
           placeholder="Lunch with Sally"
+          value={data.title}
           required
           onChange={handleChange}
           className="input-style"
@@ -143,6 +185,7 @@ const CreateExpenditure = () => {
           type="date"
           id="date"
           name="date"
+          value={data.date}
           onChange={handleChange}
           className="input-style"
           />
@@ -160,6 +203,7 @@ const CreateExpenditure = () => {
           type="number"
           id="amount"
           name="amount"
+          {...(isEdit ? {value:Math.abs(data.amount)} : {})}
           step="0.01"
           placeholder="40.25"
           min="0"
@@ -181,8 +225,8 @@ const CreateExpenditure = () => {
           type="text"
           id="description"
           name="description"
+          value={data.description}
           placeholder="It was yummy"
-          defaultValue=""
           onChange={handleChange}
           className="input-style"
           />
@@ -199,7 +243,8 @@ const CreateExpenditure = () => {
           <select 
           id="Category" 
           name="category"
-          defaultValue="others" 
+          value={data.category}
+          onChange={handleChange}
           required
           className="input-style"
           >
@@ -208,8 +253,8 @@ const CreateExpenditure = () => {
             ))}
           </select>
         </div>
-      
-        <SubmitButton />
+          
+        <SubmitButton isEdit={isEdit}/>
 
       </form>
       </div>
