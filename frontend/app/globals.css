@@ -48,11 +48,11 @@ body {
 
 /* components/expenditure-list/interactive */
 .edit-button {
-  @apply rounded-full px-4 mx-2 bg-amber-300 hover:bg-amber-400 dark:bg-yellow-600 dark:hover:bg-yellow-500 dark:text-white text-sm font-medium
+  @apply shadow rounded-full px-4 mx-2 bg-amber-300 hover:bg-amber-400 dark:bg-yellow-600 dark:hover:bg-yellow-500 dark:text-white text-sm font-medium
 }
 
 .delete-button {
-  @apply rounded-full px-4 mx-2 text-sm font-medium bg-red-500 hover:bg-red-600 dark:bg-orange-800 dark:hover:bg-orange-700 dark:text-white 
+  @apply shadow rounded-full px-4 mx-2 text-sm font-medium bg-red-500 hover:bg-red-600 dark:bg-orange-800 dark:hover:bg-orange-700 dark:text-white
 }
 
 .view-all-button {

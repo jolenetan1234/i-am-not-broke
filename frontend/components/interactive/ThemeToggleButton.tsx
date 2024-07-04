@@ -10,7 +10,10 @@ const ThemeToggleButton = () => {
             {/* <div className="flex justify-end"> */}
                     <button
                     onClick={toggleTheme}
-                    className="text-sm font-medium flex rounded-full bg-gray-900 px-2 py-1 text-white dark:bg-gray-100 dark:text-gray-900"
+                    className="shadow-md text-sm font-medium flex rounded-full px-2 py-1 
+                    bg-gray-800 text-white hover:bg-gray-900 dark:bg-gray-100 dark:text-gray-900
+                    dark:hover:bg-gray-200
+                    dark:shadow-md"
                     >
                         {theme === "light" ? "Dark" : "Light"}
                     </button> 

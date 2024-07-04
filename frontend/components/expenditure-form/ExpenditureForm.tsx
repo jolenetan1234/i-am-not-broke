@@ -7,7 +7,7 @@ import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import CloseEditButton from "./CloseEditButton";
 
-const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClose }) => {
+const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose }) => {
   const expenditureCategories = [
     { value: "dining", label: "Dining" },
     { value: "entertainment", label: "Entertainment/Leisure" },
@@ -150,8 +150,8 @@ const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClos
   };
 
   return (
-    <div className={ isEdit ? ("EditExpenditure shadow-lg border bg-white dark:bg-zinc-900 py-4") : ("CreateExpenditure")}>
-
+    <div className="ExpenditureForm">
+        
       <div className="w-4/5 m-auto">
 
       { isEdit ? <CloseEditButton handleClose={handleClose} /> : "" }
@@ -296,4 +296,4 @@ const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClos
   );
 };
 
-export default CreateExpenditure;
+export default ExpenditureForm;

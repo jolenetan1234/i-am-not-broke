@@ -3,7 +3,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/layouts/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +20,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} h-screen relative`}>
         <div className="absolute inset-0 m-auto w-9/10 h-4/5">
-        <Header />
         {children}
         </div>
       </body>

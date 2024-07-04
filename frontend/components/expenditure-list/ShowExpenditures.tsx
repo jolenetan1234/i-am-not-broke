@@ -5,11 +5,13 @@ import axios from "axios";
 import ExpenditureCard from "./ExpenditureCard";
 import { Expenditure } from "@/types/expenditure";
 import EditForm from "../expenditure-form/EditForm";
+import ConfirmDelete from "./ConfirmDelete";
 
 const ShowExpenditures = ({ isHome = false }) => {
     const [expenditures, setExpenditures] = useState<Expenditure[]>([]);
     const [del, setDel] = useState(false);
-    const [open, setOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
+    const [deleteOpen, setDeleteOpen] = useState(false);
     const [update, setUpdate] = useState(false);
     const [id, setId] = useState("");
 
@@ -33,12 +35,26 @@ const ShowExpenditures = ({ isHome = false }) => {
         fetchData();
     }, [del, update]);
 
+    // DELETE POPUP
     const handleDelete = (id) => {
+        setDeleteOpen(true);
+        setId(id);
+    };
+
+    const handleDeleteClose = () => {
+        setDeleteOpen(false);
+        setId("");
+    };
+
+    const handleDeleteConfirm = (id) => {
         const deleteData = async () => {
             try {
                 const res = await axios.delete(`http://localhost:8000/api/expt/${id}`);   
                 console.log(`Successfully deleted expenditure id ${id}`, res);
+
                 setDel(!del);
+
+                handleDeleteClose();
             } catch (err) {
                 console.log(`Failed to delete expenditure id ${id}`, err);
             };
@@ -47,10 +63,9 @@ const ShowExpenditures = ({ isHome = false }) => {
         deleteData();
     };
 
+    // EDIT POPUP
     const handleEdit = (id) => {
-        console.log(id);
-        // set `open` to `true`, to render a different version of `ExpenditureCard`
-        setOpen(true);
+        setEditOpen(true);
         setId(id);
     };
 
@@ -58,9 +73,9 @@ const ShowExpenditures = ({ isHome = false }) => {
         setUpdate(!update);
     }
 
-    const handleClose = () => {
+    const handleEditClose = () => {
         setId("");
-        setOpen(false);
+        setEditOpen(false);
     }
 
     return (
@@ -73,8 +88,17 @@ const ShowExpenditures = ({ isHome = false }) => {
             ))}
             </div>
 
-            {open ? (
-                <EditForm id={id} handleUpdate={handleUpdate} handleClose={handleClose} />
+            {editOpen ? (
+                <EditForm id={id} handleUpdate={handleUpdate} handleClose={handleEditClose} />
+            ) : (
+                ""
+            )}
+
+            {deleteOpen ? (
+                <ConfirmDelete
+                id={id}
+                handleDeleteClose={handleDeleteClose}
+                handleDeleteConfirm={handleDeleteConfirm}/>
             ) : (
                 ""
             )}

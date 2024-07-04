@@ -1,8 +1,8 @@
-import ExpenditureForm from "@/pages/ExpenditureForm";
+import CreateExpenditureForm from "@/pages/CreateExpenditureForm";
 
 const page = () => {
   return (
-    <ExpenditureForm />
+    <CreateExpenditureForm />
   );
 };
 

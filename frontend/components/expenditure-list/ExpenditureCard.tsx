@@ -7,7 +7,7 @@ const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
     <div className="ExpenditureCard">
 
         <div className="flex flex-wrap">
-            <div className="w-4/5 m-auto border-b border-coolGray-100">
+            <div className="w-4/5 m-auto border-b border-gray-500">
                 <div className="flex items-center justify-between py-4 -m-2">
                     {/* left chunk */}
                     <div className="w-auto p-2">
@@ -19,14 +19,6 @@ const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
                                 <h2 className="expt-card-title">
                                     {expt.title}
                                 </h2>
-                                
-                                {/* {open ? (
-                                    <input type="text" className="expt-card-title" onChange={handleChange}/>
-                                ) : (
-                                    <h2 className="expt-card-title">
-                                        {expt.title}
-                                    </h2>
-                                )} */}
 
                                 <h3 className="expt-card-detail">
                                     {+expt.amount > 0 ? (
@@ -40,8 +32,9 @@ const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
                     </div>
 
                     {/* right chunk (date) */}
-                    <div className="w-auto p-2">
-                        <p className="expt-card-detail">{expt.date}</p>
+                    <div className="w-auto p-2 flex flex-col items-center">
+                    
+                        <div className="expt-card-detail">{expt.date}</div>
 
                         <div className="Buttons">
                             <div className="flex">

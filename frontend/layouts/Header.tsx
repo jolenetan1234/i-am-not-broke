@@ -8,8 +8,8 @@ const Header = ({ hasBack=true, hasToggle=true }) => {
     <div className="Header">
       <div className="mt-4 mb-2 w-4/5 m-auto">
           <div className="flex justify-between">
-            {hasBack ? <BackButton /> : ""}
-            {hasToggle ? <ThemeToggleButton /> : ""}
+            {hasBack ? <BackButton /> : <div />}
+            {hasToggle ? <ThemeToggleButton /> : <div />}
           </div>
       </div>
     </div>
