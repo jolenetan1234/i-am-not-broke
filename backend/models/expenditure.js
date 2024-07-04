@@ -8,7 +8,7 @@ const sequelize = require("../config/db.js");
 
 // the `name` is what sequelize will use to auery the database
 // eg. if we put `name` as `"Expenditure"` -> sequelize queries database for the table named "Expenditures"
-const Expenditure = sequelize.define("Expenditure", {
+const Expenditure = sequelize.define("expenditure", {
     title: {
         type: Sequelize.TEXT,
         allowNull: false,
