@@ -3,13 +3,13 @@
 import BackButton from "@/components/interactive/BackButton";
 import ThemeToggleButton from "@/components/interactive/ThemeToggleButton";
 
-const Header = ({ isHome }) => {
+const Header = ({ hasBack=true, hasToggle=true }) => {
   return (
     <div className="Header">
       <div className="mt-4 mb-2 w-4/5 m-auto">
           <div className="flex justify-between">
-            <BackButton />
-            <ThemeToggleButton />
+            {hasBack ? <BackButton /> : ""}
+            {hasToggle ? <ThemeToggleButton /> : ""}
           </div>
       </div>
     </div>

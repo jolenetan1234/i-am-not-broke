@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { NewExpenditure } from "@/types/expenditure";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
+import CloseEditButton from "./CloseEditButton";
 
 const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClose }) => {
   const expenditureCategories = [
@@ -149,9 +150,12 @@ const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClos
   };
 
   return (
-    <div className={ isEdit ? ("EditExpenditure border bg-white dark:bg-zinc-900") : ("CreateExpenditure")}>
-      
+    <div className={ isEdit ? ("EditExpenditure shadow-lg border bg-white dark:bg-zinc-900 py-4") : ("CreateExpenditure")}>
+
       <div className="w-4/5 m-auto">
+
+      { isEdit ? <CloseEditButton handleClose={handleClose} /> : "" }
+
       {/* form */}
       <form 
       className="form" 
@@ -286,6 +290,7 @@ const CreateExpenditure = ({ isEdit = false, id = null, handleUpdate, handleClos
         <SubmitButton isEdit={isEdit}/>
 
       </form>
+
       </div>
     </div>
   );

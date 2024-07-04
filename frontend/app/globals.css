@@ -80,3 +80,7 @@ body {
 .submit-button {
   @apply shadow font-medium text-sm bg-amber-300 p-3 rounded-lg hover:bg-amber-400 dark:bg-yellow-600 dark:hover:bg-yellow-500 dark:text-white 
 }
+
+.EditExpenditure {
+  @apply shadow-lg border bg-white dark:bg-zinc-900 py-4
+}

@@ -14,7 +14,7 @@ const ShowExpenditures = ({ isHome = false }) => {
     const [id, setId] = useState("");
 
     useEffect(() => {
-        console.log("Fetching data for ShowExpenditures.tsx");
+        console.log("GET http://localhost:8000/api/expt");
 
         const fetchData = async () => {
             try {

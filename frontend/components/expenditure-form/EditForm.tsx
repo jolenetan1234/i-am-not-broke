@@ -8,9 +8,7 @@ const EditForm = ({ id, handleUpdate, handleClose }) => {
   return (
     <div className="EditForm">
         <div className="absolute inset-0 flex justify-center items-center">
-            <CreateExpenditure isEdit id={id} handleUpdate={handleUpdate} handleClose={handleClose} />     
-
-
+          <CreateExpenditure isEdit id={id} handleUpdate={handleUpdate} handleClose={handleClose} />  
         </div>
     </div>
   );
