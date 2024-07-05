@@ -11,7 +11,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
   const expenditureCategories = [
     { value: "dining", label: "Dining" },
     { value: "entertainment", label: "Entertainment/Leisure" },
-    { value: "shoppping", label: "Shopping" },
+    { value: "shopping", label: "Shopping" },
     { value: "education", label: "Education" },
     { value: "transport", label: "Transport" },
     { value: "others", label: "Others" },
@@ -151,7 +151,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
 
   return (
     <div className="ExpenditureForm">
-        
+
       <div className="w-4/5 m-auto">
 
       { isEdit ? <CloseEditButton handleClose={handleClose} /> : "" }

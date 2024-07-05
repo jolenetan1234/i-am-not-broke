@@ -2,11 +2,9 @@
 
 const { Sequelize } = require("sequelize");
 const sequelize = require("../config/db.js");
+const User = require("./user.js");
 
-// sequelize -- instance of Sequelize. Configures database connection
-// sequelize.define() -- creates a model (basically a table)
-
-// the `name` is what sequelize will use to auery the database
+// the `name` is what sequelize will use to query the database
 // eg. if we put `name` as `"Expenditure"` -> sequelize queries database for the table named "Expenditures"
 const Expenditure = sequelize.define("expenditure", {
     title: {
@@ -33,34 +31,26 @@ const Expenditure = sequelize.define("expenditure", {
         type: Sequelize.ENUM('expenditure', 'earning'),
         allowNull: false,
     },
+
+    // below is optional, as Sequelize automatically includes this when u define the association btwn `Expenditure` and `User`
+    user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'users',
+            key: 'id',
+        },
+    },
 });
 
-module.exports = Expenditure;
+// This automatically generates foreign key named 'user_id' in `Expenditure`
+// Expenditure.belongsTo(User, { 
+//     foreignKey: {
+//         name: 'user_id',
+//         allowNull: false,
+//     },
+//     onDelete: 'CASCADE', 
+//     onUpdate: 'CASCADE', 
+// });
 
-// 'use strict';
-// const {
-//   Model
-// } = require('sequelize');
-// module.exports = (sequelize, DataTypes) => {
-//   class Expenditure extends Model {
-//     /**
-//      * Helper method for defining associations.
-//      * This method is not a part of Sequelize lifecycle.
-//      * The `models/index` file will call this method automatically.
-//      */
-//     static associate(models) {
-//       // define association here
-//     }
-//   }
-//   Expenditure.init({
-//     title: DataTypes.TEXT,
-//     date: DataTypes.DATE,
-//     amount: DataTypes.DECIMAL,
-//     description: DataTypes.TEXT,
-//     category: DataTypes.TEXT
-//   }, {
-//     sequelize,
-//     modelName: 'Expenditure',
-//   });
-//   return Expenditure;
-// };
+module.exports = Expenditure;

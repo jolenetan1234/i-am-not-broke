@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const expenditureRouter = require("./routes/expenditureRouter.js");
 const monthRouter = require("./routes/monthRouter.js");
+const userRouter = require("./routes/userRouter.js");
 
 // const runDbMigrations = require("./db/migrations.js");
 // import test from "./migrations/test.js";
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 // routes
 app.use("/api/expt", expenditureRouter);
 app.use("/api/month", monthRouter);
+app.use("/api/user", userRouter);
 
 const start = async () => {
     // test();

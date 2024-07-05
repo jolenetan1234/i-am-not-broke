@@ -28,6 +28,11 @@ const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
                                     )}
                                 </h3>
                             </div>
+
+                            <div className="expt-card-detail">
+                                {expt.category}
+                            </div>
+
                         </div>
                     </div>
 

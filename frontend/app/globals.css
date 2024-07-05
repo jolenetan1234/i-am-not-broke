@@ -73,7 +73,7 @@ body {
 }
 
 .expt-card-title {
-  @apply text-sm font-medium dark:text-white
+  @apply text-sm font-semibold dark:text-white
 }
 
 /* components/expenditure-list/interactive/SubmitButton.tsx */
