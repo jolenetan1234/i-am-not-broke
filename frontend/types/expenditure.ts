@@ -3,7 +3,7 @@ export interface Expenditure {
     title: string;
     date: string;
     amount: number;
-    category: string;
+    category: "dining" | "entertainment" | "shopping" | "education" | "transport" | "others" | "wages" | "passive" | "transfer" | "business";
     description?: string;
     transaction_type: "expenditure" | "earning";
 };

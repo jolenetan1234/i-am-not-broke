@@ -24,11 +24,13 @@ const Expenditure = sequelize.define("expenditure", {
         type: Sequelize.TEXT,
     },
     category: {
-        type: Sequelize.TEXT,
+        type: Sequelize.ENUM('dining', 'entertainment', 'shopping', 'education', 'transport', 'others', 'wages', 'passive', 'transfer', 'business'),
+        defaultValue: 'others',
         allowNull: false,
     },
     transaction_type: {
         type: Sequelize.ENUM('expenditure', 'earning'),
+        defaultValue: 'expenditure',
         allowNull: false,
     },
 

@@ -1,7 +1,8 @@
 require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
-const expenditureRouter = require("./routes/expenditureRouter.js");
+const adminExpenditureRouter = require("./routes/adminExpenditureRouter.js");
+const userExpenditureRouter = require("./routes/userExpenditureRouter.js");
 const monthRouter = require("./routes/monthRouter.js");
 const userRouter = require("./routes/userRouter.js");
 
@@ -18,7 +19,8 @@ app.get("/", (req, res) => {
 });
 
 // routes
-app.use("/api/expt", expenditureRouter);
+app.use("/api/expt/admin", adminExpenditureRouter);
+app.use("/api/expt/user", userExpenditureRouter);
 app.use("/api/month", monthRouter);
 app.use("/api/user", userRouter);
 

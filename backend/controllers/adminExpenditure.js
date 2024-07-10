@@ -10,16 +10,7 @@ const getAllExpenditures = async (req, res) => {
     };
 };
 
-const createExpenditure = async (req, res) => {
-    try {
-        const result = await Expenditure.create(req.body);
-        res.json({ message: "Expenditure added successfully", result });
-    } catch (err) {
-        res.status(500).json({ message: "Failed to create expenditure", error: err });
-    }
-};
-
-const getExpenditureById = async (req, res, next) => {
+const getExpenditureDetail = async (req, res, next) => {
     try {
         const result = await Expenditure.findAll({
             where: {
@@ -30,6 +21,15 @@ const getExpenditureById = async (req, res, next) => {
     } catch (err) {
         res.status(500).json({ message: `Failed to get expenditure by id ${req.params.id}` });
     };
+};
+
+const createExpenditure = async (req, res) => {
+    try {
+        const result = await Expenditure.create(req.body);
+        res.json({ message: "Expenditure added successfully", result });
+    } catch (err) {
+        res.status(500).json({ message: "Failed to create expenditure", error: err });
+    }
 };
 
 const updateExpenditure = async (req, res) => {
@@ -64,7 +64,7 @@ const deleteExpenditure = async (req, res) => {
 module.exports = {
     getAllExpenditures,
     createExpenditure,
-    getExpenditureById,
+    getExpenditureDetail,
     updateExpenditure,
     deleteExpenditure,
 };
