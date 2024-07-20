@@ -1,4 +1,4 @@
-import ExpenditureForm from "./ExpenditureForm";
+import ExpenditureForm from "../ExpenditureForm";
 
 const EditForm = ({ id, handleUpdate, handleClose }) => {
 

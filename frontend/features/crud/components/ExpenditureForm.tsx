@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { NewExpenditure } from "@/types/expenditure";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
-import CloseEditButton from "./CloseEditButton";
+import CloseEditButton from "./edit-form/CloseEditButton";
 
 const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose }) => {
   const expenditureCategories = [
@@ -43,12 +43,12 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
   // IF `isEdit`, FETCH EXISTING ENTRY
   if (isEdit) {
     useEffect(() => {
-      // const fetchData = await axios.get(`http://localhost:8000/api/expt/`)
+      // const fetchData = await axios.get(`http://localhost:8000/api/expt/user/1`)
       console.log(`fetching data for id ${id}`);
 
       const fetchData = async () => {
         try {
-          const res = await axios.get(`http://localhost:8000/api/expt/${id}`);
+          const res = await axios.get(`http://localhost:8000/api/expt/user/1/${id}`);
           console.log(`Successfully fetched data for id ${id}`, res.data[0]);
 
           setData({
@@ -94,7 +94,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
 
     const postData = async () => {
       try {
-        const res = await axios.post("http://localhost:8000/api/expt", data);
+        const res = await axios.post("http://localhost:8000/api/expt/user/1", data);
 
         // reset `data` to initial state
         setData({
@@ -117,9 +117,9 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
 
     const putData = async () => {
       console.log(`Sending PUT request for id ${id}`);
-      
+
       try {
-        const res = await axios.put(`http://localhost:8000/api/expt/${id}`, data);
+        const res = await axios.put(`http://localhost:8000/api/expt/user/1/${id}`, data);
 
         console.log(`Successfully updated id ${id}`, res);
 

@@ -1,5 +1,5 @@
-import DeleteButton from "../interactive/DeleteButton";
-import EditButton from "../interactive/EditButton";
+import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
 
 const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
   return (

@@ -1,6 +1,6 @@
 // expenditure header ("spendings" + `create expenditure` button)
 
-import CreateTransactionButton from "../interactive/CreateTransactionButton";
+import CreateTransactionButton from "./CreateTransactionButton";
 
 const ExpenditureHeader = ({ isHome = false }) => {
   return (

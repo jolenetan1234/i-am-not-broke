@@ -1,5 +1,5 @@
-import Header from "@/layouts/Header";
-import CreateForm from "@/components/expenditure-form/CreateForm"
+import Header from "@/components/Header.tsx";
+import CreateForm from "@/features/crud/components/create-form/CreateForm"
 
 const CreateExpenditureForm = () => {
   return (

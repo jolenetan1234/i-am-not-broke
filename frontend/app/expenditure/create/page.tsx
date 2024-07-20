@@ -1,4 +1,4 @@
-import CreateExpenditureForm from "@/pages/CreateExpenditureForm";
+import CreateExpenditureForm from "@/features/crud/pages/CreateExpenditureForm";
 
 const page = () => {
   return (

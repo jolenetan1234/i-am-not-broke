@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ExpenditureCard from "./ExpenditureCard";
+import ExpenditureCard from "./expt-card/ExpenditureCard";
 import { Expenditure } from "@/types/expenditure";
-import EditForm from "../expenditure-form/EditForm";
-import ConfirmDelete from "./ConfirmDelete";
+import EditForm from "./edit-form/EditForm";
+import ConfirmDelete from "./confirm-delete/ConfirmDelete";
 
 const ShowExpenditures = ({ isHome = false }) => {
     const [expenditures, setExpenditures] = useState<Expenditure[]>([]);
@@ -16,11 +16,11 @@ const ShowExpenditures = ({ isHome = false }) => {
     const [id, setId] = useState("");
 
     useEffect(() => {
-        console.log("GET http://localhost:8000/api/expt");
+        console.log("GET http://localhost:8000/api/expt/user/:userId");
 
         const fetchData = async () => {
             try {
-                const res = await axios.get("http://localhost:8000/api/expt");
+                const res = await axios.get("http://localhost:8000/api/expt/user/1");
                 if (isHome) {
                     setExpenditures(res.data.reverse().slice(0, 5));
                 } else {
@@ -49,7 +49,7 @@ const ShowExpenditures = ({ isHome = false }) => {
     const handleDeleteConfirm = (id) => {
         const deleteData = async () => {
             try {
-                const res = await axios.delete(`http://localhost:8000/api/expt/${id}`);   
+                const res = await axios.delete(`http://localhost:8000/api/expt/user/1/${id}`);   
                 console.log(`Successfully deleted expenditure id ${id}`, res);
 
                 setDel(!del);

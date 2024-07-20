@@ -1,7 +1,7 @@
 // implement later
 // contains `BackButton` and `ThemeToggleButton`
-import BackButton from "@/components/interactive/BackButton";
-import ThemeToggleButton from "@/components/interactive/ThemeToggleButton";
+import BackButton from "@/components/BackButton.tsx";
+import ThemeToggleButton from "@/features/theme/components/ThemeToggleButton";
 
 const Header = ({ hasBack=true, hasToggle=true }) => {
   return (

@@ -1,5 +1,5 @@
 // home page
-import HomePage from "@/pages/HomePage"
+import HomePage from "@/features/crud/pages/HomePage"
 
 const page = () => {
   return (

@@ -1,4 +1,4 @@
-import ShowAllExpendituresPage from "@/pages/ShowAllExpendituresPage";
+import ShowAllExpendituresPage from "@/features/crud/pages/ShowAllExpendituresPage";
 
 const page = () => {
   return (
