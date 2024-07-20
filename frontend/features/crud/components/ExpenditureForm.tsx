@@ -2,10 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { NewExpenditure } from "@/types/expenditure";
+import { NewExpenditure } from "@/features/crud/types/expenditure";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import CloseEditButton from "./edit-form/CloseEditButton";
+
+// HARD-CODED. REMOVE LATER
+const USER_ID = 1;
 
 const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose }) => {
   const expenditureCategories = [
@@ -28,7 +31,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
   // hooks
   const router = useRouter();
 
-  // define states
+  // set state `data`
   const [data, setData] = useState<NewExpenditure>({
     title: "",
     date: new Date().toISOString().split("T")[0],
@@ -36,6 +39,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
     category: "others",
     description: "",
     transaction_type: "expenditure",
+    user_id: USER_ID,
   });
 
   const [categories, setCategories] = useState(expenditureCategories);
@@ -48,7 +52,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
 
       const fetchData = async () => {
         try {
-          const res = await axios.get(`http://localhost:8000/api/expt/user/1/${id}`);
+          const res = await axios.get(`http://localhost:8000/api/expt/user/${USER_ID}/${id}`);
           console.log(`Successfully fetched data for id ${id}`, res.data[0]);
 
           setData({
@@ -58,6 +62,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
             category: res.data[0].category,
             description: res.data[0].description,
             transaction_type: res.data[0].transaction_type,
+            user_id: res.data[0].user_id,
           });
           
         } catch (err) {
@@ -94,7 +99,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
 
     const postData = async () => {
       try {
-        const res = await axios.post("http://localhost:8000/api/expt/user/1", data);
+        const res = await axios.post(`http://localhost:8000/api/expt/user/${USER_ID}`, data);
 
         // reset `data` to initial state
         setData({
@@ -104,6 +109,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
           category: "others",
           description: "",
           transaction_type: "expenditure",
+          user_id: USER_ID,
         });
 
         console.log("Successfully created expenditure", res);
@@ -119,7 +125,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
       console.log(`Sending PUT request for id ${id}`);
 
       try {
-        const res = await axios.put(`http://localhost:8000/api/expt/user/1/${id}`, data);
+        const res = await axios.put(`http://localhost:8000/api/expt/user/${USER_ID}/${id}`, data);
 
         console.log(`Successfully updated id ${id}`, res);
 
@@ -131,9 +137,10 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
           category: "others",
           description: "",
           transaction_type: "expenditure",
+          user_id: USER_ID,
         });
 
-        handleUpdate(); // PUT HERE INSTEAD OF BELOW `onSubmit`.
+        handleUpdate(); // PUT HERE INSTEAD OF BELOW `onSubmit`, so that state of `update` changes only after the above `await` has is done.
 
         handleClose();
 

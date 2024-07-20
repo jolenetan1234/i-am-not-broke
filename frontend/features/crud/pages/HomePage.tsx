@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
-import ExpenditureHeader from "@/features/crud/components/ExpenditureHeader";
-import ShowExpenditures from "@/features/crud/components/ShowExpenditures";
-import ViewAllButton from "@/features/crud/components/ViewAllButton";
+import ExpenditureHeader from "@/features/crud/components/show-expt/ExpenditureHeader";
+import ShowExpenditures from "@/features/crud/components/show-expt/ShowExpenditures";
+import ViewAllButton from "@/features/crud/components/show-expt/ViewAllButton";
 
 const HomePage = () => {
 

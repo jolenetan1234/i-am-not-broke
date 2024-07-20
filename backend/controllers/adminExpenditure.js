@@ -42,9 +42,9 @@ const updateExpenditure = async (req, res) => {
                 },
             },
         );
-        res.json({ message: `Successfully updated todo id ${req.params.id}`, result })
+        res.json({ message: `Successfully updated expenditure id ${req.params.id}`, result })
     } catch (err) {
-        res.status(500).json({ message: `Failed to update todo id ${req.params.id}`, error: err });
+        res.status(500).json({ message: `Failed to update expenditure id ${req.params.id}`, error: err });
     }
 };
 
@@ -55,9 +55,9 @@ const deleteExpenditure = async (req, res) => {
                 id: req.params.id
             },
         });
-        res.json({ message:`Successfully deleted todo id ${req.params.id}`, result });
+        res.json({ message:`Successfully deleted expenditure id ${req.params.id}`, result });
     } catch (err) {
-        res.status(500).json({ message: `Failed to delete todo id ${req.params.id}`, error: err });
+        res.status(500).json({ message: `Failed to delete expenditure id ${req.params.id}`, error: err });
     }
 };
 

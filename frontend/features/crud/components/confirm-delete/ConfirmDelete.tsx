@@ -34,7 +34,8 @@ const ConfirmDelete = ({ id, handleDeleteClose, handleDeleteConfirm }) => {
 
                         <button
                         className="shadow-md rounded-sm px-4 mx-2 text-sm font-medium text-gray-100 bg-red-500 hover:bg-red-600 dark:bg-orange-800 dark:hover:bg-orange-700 dark:text-black"
-                        onClick={() => handleDeleteConfirm(id)}
+                        onClick={() => handleDeleteConfirm(id)
+                          }
                         >Delete</button>
                         </div>    
                     </div>
@@ -43,7 +44,7 @@ const ConfirmDelete = ({ id, handleDeleteClose, handleDeleteConfirm }) => {
             </div>
           </div>
     </div>
-  )
-}
+  );
+};
 
-export default ConfirmDelete
+export default ConfirmDelete;
