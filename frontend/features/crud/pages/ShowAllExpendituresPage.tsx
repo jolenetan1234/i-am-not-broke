@@ -1,6 +1,6 @@
 import Header from "@/components/Header.tsx";
 import ExpenditureHeader from "@/features/crud/components/show-expt/ExpenditureHeader";
-import ShowExpenditures from "@/features/crud/components/ShowExpenditures";
+import ShowExpenditures from "@/features/crud/components/show-expt/ShowExpenditures";
 
 const ShowAllExpendituresPage = () => {
   return (

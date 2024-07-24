@@ -1,4 +1,5 @@
-const Expenditure = require("../models/expenditure.js");
+const db = require("../models");
+const Expenditure = db.expenditures;
 
 const getAllExpenditures = async (req, res) => {
     try {

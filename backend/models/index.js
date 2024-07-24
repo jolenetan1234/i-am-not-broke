@@ -42,9 +42,12 @@
 
 // module.exports = db;
 
-import Expenditure from "./expenditure.js";
-import User from "./user.js";
+const sequelize = require("../config/db.js");
+const Sequelize = require("sequelize");
+const Expenditure = require("./expenditure.js"); 
+const User = require("./user.js"); 
 
+// associations
 Expenditure.belongsTo(User, { 
   foreignKey: {
       name: 'user_id',
@@ -63,7 +66,13 @@ User.hasMany(Expenditure, {
   onUpdate: 'CASCADE',
 });
 
-module.exports = {
-  Expenditure,
-  User
-};
+// database
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+// connecting to models
+db.expenditures = Expenditure;
+db.users = User;
+
+module.exports = db;

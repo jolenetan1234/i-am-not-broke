@@ -42,17 +42,9 @@ const Expenditure = sequelize.define("expenditure", {
             model: 'users',
             key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
     },
 });
-
-// This automatically generates foreign key named 'user_id' in `Expenditure`
-// Expenditure.belongsTo(User, { 
-//     foreignKey: {
-//         name: 'user_id',
-//         allowNull: false,
-//     },
-//     onDelete: 'CASCADE', 
-//     onUpdate: 'CASCADE', 
-// });
 
 module.exports = Expenditure;

@@ -1,5 +1,5 @@
-const Expenditure = require("../models/expenditure.js");
-const User = require("../models/expenditure.js");
+const db = require("../models");
+const Expenditure = db.expenditures;
 
 const getAllExpenditures = async (req, res) => {
     const userId = req.params.userId; 
