@@ -4,13 +4,15 @@ const jwt = require("jsonwebtoken");
 const db = require("../models");
 const User = db.users;
 
-const signup = async (req, res) => {
+const saltRounds = 10;
+
+const signupUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
         const data = {
             username,
             email,
-            password: await bcrypt.hash(password, 10),
+            password: await bcrypt.hash(password, saltRounds),
         };
 
         const user = await User.create(data);
@@ -18,7 +20,7 @@ const signup = async (req, res) => {
         // if above promise is resolved, then we generate a token
         // token is a secure way to represent user info, that can be verified using a secret key
         if (user) {
-            const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
                 expiresIn: 1 * 24 * 60 * 60 * 1000,
             });
 
@@ -42,7 +44,7 @@ const signup = async (req, res) => {
 };
 
 // login authentication
-const login = async (req, res) => {
+const loginUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
@@ -62,7 +64,7 @@ const login = async (req, res) => {
 
             if (isSame) {
                 // if password matches, generate a token with payload `{ id: user.id }`
-                const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { 
+                const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { 
                     expiresIn: 1 * 24 * 60 * 60 * 1000, 
                 });
 
@@ -88,13 +90,13 @@ const login = async (req, res) => {
     };
 };
 
-const update = async (req, res) => {
+const updateUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
         const data = {
             username: username,
             email: email,
-            password: await bcrypt.hash(password, 10),
+            password: await bcrypt.hash(password, saltRounds),
         };
 
         const user = await User.update(data, {
@@ -112,7 +114,7 @@ const update = async (req, res) => {
 };
 
 module.exports = {
-    signup,
-    login,
-    update,
+    signupUser,
+    loginUser,
+    updateUser,
 };
