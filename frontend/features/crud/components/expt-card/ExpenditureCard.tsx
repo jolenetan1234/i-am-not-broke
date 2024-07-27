@@ -7,7 +7,7 @@ const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
     <div className="ExpenditureCard">
 
         <div className="flex flex-wrap">
-            <div className="w-4/5 m-auto border-b border-gray-500">
+            <div className="m-auto border-b border-gray-500">
                 <div className="flex items-center justify-between py-4 -m-2">
                     {/* left chunk */}
                     <div className="w-auto p-2">

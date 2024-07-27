@@ -20,7 +20,7 @@ const signupUser = async (req, res) => {
         // if above promise is resolved, then we generate a token
         // token is a secure way to represent user info, that can be verified using a secret key
         if (user) {
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+            const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
                 expiresIn: 1 * 24 * 60 * 60 * 1000,
             });
 
@@ -90,31 +90,31 @@ const loginUser = async (req, res) => {
     };
 };
 
-const updateUser = async (req, res) => {
-    try {
-        const { username, email, password } = req.body;
-        const data = {
-            username: username,
-            email: email,
-            password: await bcrypt.hash(password, saltRounds),
-        };
+// const updateUser = async (req, res) => {
+//     try {
+//         const { username, email, password } = req.body;
+//         const data = {
+//             username: username,
+//             email: email,
+//             password: await bcrypt.hash(password, saltRounds),
+//         };
 
-        const user = await User.update(data, {
-            where: {
-                id: req.params.userId,
-                // in the future we should access using the cookie and not browser data
-            },
-        });
+//         const user = await User.update(data, {
+//             where: {
+//                 id: req.params.userId,
+//                 // in the future we should access using the cookie and not browser data
+//             },
+//         });
 
-        return res.status(201).json({ message: "Successfully updated user", user });
-    } catch (err) {
-        res.status(500).json({ message: "Failed to update user", error: err });
-        console.log(err);
-    };
-};
+//         return res.status(201).json({ message: "Successfully updated user", user });
+//     } catch (err) {
+//         res.status(500).json({ message: "Failed to update user", error: err });
+//         console.log(err);
+//     };
+// };
 
 module.exports = {
     signupUser,
     loginUser,
-    updateUser,
+    // updateUser,
 };

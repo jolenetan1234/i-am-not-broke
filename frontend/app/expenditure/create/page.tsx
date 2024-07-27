@@ -1,3 +1,5 @@
+"use client";
+
 import CreateExpenditureForm from "@/features/crud/pages/CreateExpenditureForm";
 
 const page = () => {

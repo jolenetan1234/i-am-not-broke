@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const BackButton = ({ back = "/" }) => {
+const BackButton = ({ back = "/home" }) => {
   return (
     <div className="BackButton">
         {/* <div className="my-5"> */}

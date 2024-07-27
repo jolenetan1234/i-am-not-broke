@@ -1,3 +1,5 @@
+"use client";
+
 import ShowAllExpendituresPage from "@/features/crud/pages/ShowAllExpendituresPage";
 
 const page = () => {

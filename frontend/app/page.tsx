@@ -1,10 +1,12 @@
 // home page
-import HomePage from "@/features/crud/pages/HomePage"
+"use client";
+
+import AuthPage from "@/pages/AuthPage";
 
 const page = () => {
   return (
-    <HomePage />
-  )
-}
+    <AuthPage />
+  );
+};
 
 export default page;

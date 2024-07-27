@@ -16,7 +16,7 @@ const ShowExpenditures = ({ isHome = false }) => {
     const [editOpen, setEditOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [update, setUpdate] = useState(false);
-    const [id, setId] = useState("");
+    const [exptId, setExptId] = useState("");
 
     useEffect(() => {
         console.log(`GET http://localhost:8000/api/expt/user/${userId}`);
@@ -39,30 +39,30 @@ const ShowExpenditures = ({ isHome = false }) => {
     }, [del, update]);
 
     // DELETE POPUP
-    const handleDelete = (id) => {
+    const handleDelete = (exptId) => {
         setDeleteOpen(true);
-        setId(id);
+        setExptId(exptId);
     };
 
     const handleDeleteClose = () => {
         setDeleteOpen(false);
-        setId("");
+        setExptId("");
     };
 
-    const handleDeleteConfirm = (id) => {
+    const handleDeleteConfirm = (exptId) => {
 
         const deleteData = async () => {
-            console.log(`Sending DELETE request for expenditure id ${id}`);
+            console.log(`Sending DELETE request for expenditure id ${exptId}`);
 
             try {
-                const res = await axios.delete(`http://localhost:8000/api/expt/user/${userId}/${id}`);   
-                console.log(`Successfully deleted expenditure id ${id}`, res);
+                const res = await axios.delete(`http://localhost:8000/api/expt/user/${userId}/${exptId}`);   
+                console.log(`Successfully deleted expenditure id ${exptId}`, res);
 
                 setDel(!del);
 
                 handleDeleteClose();
             } catch (err) {
-                console.log(`Failed to delete expenditure id ${id}`, err);
+                console.log(`Failed to delete expenditure id ${exptId}`, err);
             };
         };
 
@@ -70,9 +70,9 @@ const ShowExpenditures = ({ isHome = false }) => {
     };
 
     // EDIT POPUP
-    const handleEdit = (id) => {
+    const handleEdit = (exptId) => {
         setEditOpen(true);
-        setId(id);
+        setExptId(exptId);
     };
 
     const handleUpdate = () => {
@@ -80,7 +80,7 @@ const ShowExpenditures = ({ isHome = false }) => {
     }
 
     const handleEditClose = () => {
-        setId("");
+        setExptId("");
         setEditOpen(false);
     }
 
@@ -95,14 +95,14 @@ const ShowExpenditures = ({ isHome = false }) => {
             </div>
 
             {editOpen ? (
-                <EditForm id={id} handleUpdate={handleUpdate} handleClose={handleEditClose} />
+                <EditForm id={exptId} handleUpdate={handleUpdate} handleClose={handleEditClose} />
             ) : (
                 ""
             )}
 
             {deleteOpen ? (
                 <ConfirmDelete
-                id={id}
+                id={exptId}
                 handleDeleteClose={handleDeleteClose}
                 handleDeleteConfirm={handleDeleteConfirm}
                 />

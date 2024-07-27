@@ -1,3 +1,4 @@
+// protected route
 const { Router } = require("express");
 const { getAllExpenditures, createExpenditure, updateExpenditure, getExpenditureDetail, deleteExpenditure } = require("../controllers/userExpenditure.js");
 const router = Router();

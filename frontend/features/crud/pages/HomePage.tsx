@@ -7,10 +7,14 @@ const HomePage = () => {
 
   return (
     <div className="HomePage">
+      {/* <div className="flex-grow"> */}
         <Header hasBack={false} />
-        <ExpenditureHeader isHome />
+        <ExpenditureHeader isHome/>
         <ShowExpenditures isHome />
-        <ViewAllButton />
+        {/* <div className="m-auto max-w-lg my-10 px-6"> */}
+          <ViewAllButton />
+        {/* </div> */}
+      {/* </div> */}
     </div>
   );
 };

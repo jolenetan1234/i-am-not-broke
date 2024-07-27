@@ -6,10 +6,10 @@ const ExpenditureHeader = ({ isHome = false }) => {
   return (
     <div className="ExpenditureHeader">
         {/* outer, bigger flex box */}
-        <div className="flex mb-2 mt-4">
+        <div className="flex mb-2">
 
             {/* adjust width of CHILD, not entire outer flexbox */}
-            <div className="w-4/5 m-auto">
+            {/* <div className="w-4/5 m-auto"> */}
                 
                 {/* even inner, smaller flex box */}
                     <div className="flex justify-between">
@@ -25,7 +25,7 @@ const ExpenditureHeader = ({ isHome = false }) => {
 
                     </div>
 
-            </div>
+            {/* </div> */}
 
         </div>
 

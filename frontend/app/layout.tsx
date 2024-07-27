@@ -18,11 +18,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} h-screen relative`}>
-        <div className="absolute inset-0 m-auto w-9/10 h-4/5">
-        {children}
+      <body>
+        <div className="flex h-screen justify-center items-center">
+          <div className="h-4/5 flex items-center">
+            {children}
+          </div>
         </div>
+
+        {/* <div className="container mx-auto">
+
+          {children}
+        </div> */}
       </body>
+
     </html>
   );
 };

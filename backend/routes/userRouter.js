@@ -6,15 +6,10 @@ const verifyToken = require("../middleware/verifyToken.js");
 
 const router = Router();
 
-// middleware
-router.use(verifyToken);
-
-// routes
 router.get("/", getAllUsers);
 
-// router.post("/", createUser);
-
-// router.put("/:id", updateUser);
+// middleware
+router.use(verifyToken);
 
 router.delete("/:id", deleteUser);
 
