@@ -1,7 +1,8 @@
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
+import { Expenditure } from "../../types/expenditure";
 
-const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
+const ExpenditureCard = ({ expt, handleDelete, handleEdit }: { expt: Expenditure, handleDelete: (exptId: string) => void, handleEdit: (exptId: string) => void }) => {
   return (
     // wrapper div
     <div className="ExpenditureCard">
@@ -45,11 +46,11 @@ const ExpenditureCard = ({ expt, handleDelete, handleEdit }) => {
                             <div className="flex">
                                 <EditButton 
                                 handleEdit={handleEdit}
-                                id={expt.id}
+                                exptId={expt.id}
                                 />
                                 <DeleteButton 
                                 handleDelete={handleDelete} 
-                                id={expt.id} 
+                                exptId={expt.id} 
                                 />
                             </div>
                         </div>

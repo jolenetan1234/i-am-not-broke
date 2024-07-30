@@ -1,16 +1,18 @@
-"use client"
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { NewExpenditure } from "@/features/crud/types/expenditure";
 import axios from "axios";
-import SubmitButton from "./SubmitButton";
-import CloseEditButton from "./edit-form/CloseEditButton";
+import SubmitButton from "@/components/SubmitButton";
+import CloseButton from "@/components/CloseButton";
+
+// hooks
+import useFetchAndSetData from "../hooks/useFetchAndSetData";
+import useForm from "../hooks/useForm";
 
 // HARD-CODED. REMOVE LATER
-const USER_ID = 1;
+const REDIRECT_PATH = "/home";
 
-const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose }) => {
+const ExpenditureForm = ({ isEdit = false, exptId = "", handleUpdate, handleEditClose }: { isEdit: boolean, exptId?: string, handleUpdate: () => void, handleEditClose: () => void }) => {
   const expenditureCategories = [
     { value: "dining", label: "Dining" },
     { value: "entertainment", label: "Entertainment/Leisure" },
@@ -31,7 +33,9 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
   // hooks
   const router = useRouter();
 
-  // set state `data`
+  // set states
+  const [userId, setUserId] = useState(localStorage.getItem("userId") ?? "");
+
   const [data, setData] = useState<NewExpenditure>({
     title: "",
     date: new Date().toISOString().split("T")[0],
@@ -39,67 +43,45 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
     category: "others",
     description: "",
     transaction_type: "expenditure",
-    user_id: USER_ID,
+    user_id: +userId,
   });
 
   const [categories, setCategories] = useState(expenditureCategories);
 
-  // IF `isEdit`, FETCH EXISTING ENTRY
+  // useEffect
   if (isEdit) {
+    // so this only happens on initial render
     useEffect(() => {
-      // const fetchData = await axios.get(`http://localhost:8000/api/expt/user/1`)
-      console.log(`fetching data for id ${id}`);
-
-      const fetchData = async () => {
-        try {
-          const res = await axios.get(`http://localhost:8000/api/expt/user/${USER_ID}/${id}`);
-          console.log(`Successfully fetched data for id ${id}`, res.data[0]);
-
-          setData({
-            title: res.data[0].title,
-            date: res.data[0].date,
-            amount: res.data[0].amount,
-            category: res.data[0].category,
-            description: res.data[0].description,
-            transaction_type: res.data[0].transaction_type,
-            user_id: res.data[0].user_id,
-          });
-          
-        } catch (err) {
-          console.log(`Failed to fetch data for id ${id}`, err);
-        }; 
-      };
-
-    fetchData();
-
+      useFetchAndSetData(userId, exptId, setData);
+      console.log("inside", data);
     }, []);
   };
 
+  // such that this happens whenever `data.transaction_type` changes
+  useEffect(() => {
+    setCategories(data.transaction_type === "expenditure" ? expenditureCategories : earningCategories);
+  }, [data.transaction_type]);
+
   // handlers
-  const handleChange = (e) => {
-    setData((data) => ({ ...data, [e.target.name]: e.target.value }));
-    console.log(`${e.target.name}: ${e.target.value}`);
-  };
+  const { handleChange } = useForm(setData, data, setCategories, expenditureCategories, earningCategories);
 
-  const handleTransactionType = (e) => {
-    data.transaction_type = e.target.value;
-    // setTransactionType(e.target.value);
-    setCategories(e.target.value === "expenditure" ? expenditureCategories : earningCategories);
-    console.log(`transaction_type: ${e.target.value}`);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (data.transaction_type === "expenditure") {
       data.amount = -Math.abs(data.amount);
+    } else {
+      data.amount = Math.abs(data.amount);
     };
+
+    // // convert userId to number
+    // data.user_id = +data.user_id;
 
     console.log("Data to be sent:", data);
 
     const postData = async () => {
       try {
-        const res = await axios.post(`http://localhost:8000/api/expt/user/${USER_ID}`, data);
+        const res = await axios.post(`http://localhost:8000/api/expt/user/${userId}`, data);
 
         // reset `data` to initial state
         setData({
@@ -109,12 +91,12 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
           category: "others",
           description: "",
           transaction_type: "expenditure",
-          user_id: USER_ID,
+          user_id: +userId,
         });
 
         console.log("Successfully created expenditure", res);
 
-        router.push("/");
+        router.push(REDIRECT_PATH);
 
       } catch (err) {
         console.log(err);
@@ -122,12 +104,12 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
     };
 
     const putData = async () => {
-      console.log(`Sending PUT request for id ${id}`);
+      console.log(`Sending PUT request for id ${exptId}`);
 
       try {
-        const res = await axios.put(`http://localhost:8000/api/expt/user/${USER_ID}/${id}`, data);
+        const res = await axios.put(`http://localhost:8000/api/expt/user/${userId}/${exptId}`, data);
 
-        console.log(`Successfully updated id ${id}`, res);
+        console.log(`Successfully updated id ${exptId}`, res);
 
         // reset `data` to initial state
         setData({
@@ -137,15 +119,15 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
           category: "others",
           description: "",
           transaction_type: "expenditure",
-          user_id: USER_ID,
+          user_id: +userId,
         });
 
         handleUpdate(); // PUT HERE INSTEAD OF BELOW `onSubmit`, so that state of `update` changes only after the above `await` has is done.
 
-        handleClose();
+        handleEditClose();
 
       } catch (err) {
-        console.log(`Failed to update id ${id}`, err);
+        console.log(`Failed to update exptId ${exptId}`, err);
       };
     };
 
@@ -161,7 +143,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
 
       <div className="w-4/5 m-auto">
 
-      { isEdit ? <CloseEditButton handleClose={handleClose} /> : "" }
+      { isEdit ? <CloseButton onClick={handleEditClose} /> : "" }
 
       {/* form */}
       <form 
@@ -169,7 +151,7 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
       onSubmit={(e) => {
         handleSubmit(e);
         // handleUpdate();
-        // handleClose();
+        // handleEditClose();
       }}>
         {/* transaction type */}
         <div className="mb-5">
@@ -182,9 +164,11 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
 
           <select 
           id="transactionType"
+          name="transaction_type"
           value={data.transaction_type}
           required
-          onChange={handleTransactionType}
+          onChange={handleChange}
+          // onChange={handleTransactionType}
           className="input-style"
           >
             <option value="expenditure">Expenditure</option>
@@ -294,7 +278,9 @@ const ExpenditureForm = ({ isEdit = false, id = null, handleUpdate, handleClose 
           </select>
         </div>
           
-        <SubmitButton isEdit={isEdit}/>
+        <SubmitButton
+        {...(isEdit ? { text:"Save" } : { text:"Create transaction" })}
+        />
 
       </form>
 

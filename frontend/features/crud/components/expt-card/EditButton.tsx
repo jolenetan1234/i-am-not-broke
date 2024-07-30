@@ -1,10 +1,11 @@
-const EditButton = ({ id, handleEdit }) => {
+const EditButton = ({ exptId, handleEdit }: { exptId: string, handleEdit: (exptId: string) => void }) => {
   return (
     <div className="EditButton">
       <button 
-      onClick={() => (
-        handleEdit(id)
-      )}
+      onClick={() => {
+        // console.log("hello", exptId);
+        handleEdit(exptId);
+      }}
       className="edit-button">
         Edit
       </button>

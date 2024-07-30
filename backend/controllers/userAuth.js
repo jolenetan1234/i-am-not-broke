@@ -82,7 +82,7 @@ const loginUser = async (req, res) => {
                 return res.status(401).json({ message: "Authentication failed: wrong password" });
             };
         } else {
-            return res.status(401).json({ messsage: "Authentication failed: username/email doesn't exist" });
+            return res.status(401).json({ message: "Authentication failed: username/email doesn't exist" });
         };
     } catch (err) {
         res.status(500).json({ message: "Failed to login user", error: err });

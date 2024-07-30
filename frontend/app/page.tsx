@@ -1,7 +1,7 @@
 // home page
 "use client";
 
-import AuthPage from "@/pages/AuthPage";
+import AuthPage from "@/features/authentication/pages/AuthPage";
 
 const page = () => {
   return (

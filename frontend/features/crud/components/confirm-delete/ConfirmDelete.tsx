@@ -10,8 +10,7 @@ const ConfirmDelete = ({ id, handleDeleteClose, handleDeleteConfirm }) => {
               
                 <div className="text flex flex-col h-full">
                     
-                    <div className="block text-md font-bold text-gray-900 dark:text-white text-center 
-
+                    <div className="block text-md font-bold text-gray-900 dark:text-white text-center
                     h-1/3">
                         Delete Entry
                     </div>

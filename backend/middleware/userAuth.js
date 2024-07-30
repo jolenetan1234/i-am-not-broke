@@ -23,7 +23,7 @@ const checkAvail = async (req, res, next) => {
         });
         
         if (emailCheck) {
-            return res.status(409).json({ message: "Username already taken" });
+            return res.status(409).json({ message: "Email already taken" });
         };
     
         next();    

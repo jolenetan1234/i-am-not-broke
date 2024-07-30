@@ -1,13 +1,10 @@
-import { useState } from "react";
-
-const DeleteButton = ({ id, handleDelete }) => {
-  const [open, setOpen] = useState(false);
+const DeleteButton = ({ exptId, handleDelete }: { exptId: string, handleDelete: (exptId: string) => void }) => {
 
   return (
     <div className="DeleteButton">
       <button 
       onClick={() => (
-        handleDelete(id)
+        handleDelete(exptId)
       )}
       className="delete-button">
         Delete

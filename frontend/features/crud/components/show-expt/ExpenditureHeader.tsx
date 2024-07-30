@@ -6,13 +6,13 @@ const ExpenditureHeader = ({ isHome = false }) => {
   return (
     <div className="ExpenditureHeader">
         {/* outer, bigger flex box */}
-        <div className="flex mb-2">
+        <div className="flex mb-2 justify-between">
 
             {/* adjust width of CHILD, not entire outer flexbox */}
             {/* <div className="w-4/5 m-auto"> */}
                 
                 {/* even inner, smaller flex box */}
-                    <div className="flex justify-between">
+                    {/* <div className="flex"> */}
                         <div className="Transactions">
                         {isHome ? (
                             <strong className="dark:text-white">Transactions</strong>
@@ -23,7 +23,7 @@ const ExpenditureHeader = ({ isHome = false }) => {
 
                         <CreateTransactionButton />
 
-                    </div>
+                    {/* </div> */}
 
             {/* </div> */}
 
