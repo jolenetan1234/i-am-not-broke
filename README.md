@@ -8,7 +8,7 @@ In progress: Logout functionality, data visualisation
 
 To start:
 Start `/backend` with the command below:
-`npm start`
+```npm start```
 
 Start `/frontend` with the command below:
-`npm run dev`
+```npm run dev```
