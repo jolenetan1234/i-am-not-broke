@@ -1,4 +1,11 @@
-import Header from "@/components/Header";
+import { useRouter } from "next/navigation";
+
+// hooks
+import { useState, useEffect } from "react";
+// import useFetchData from "../hooks/useFetchData";
+
+// components
+import Header from "@/layouts/Header";
 import ExpenditureHeader from "@/features/crud/components/show-expt/ExpenditureHeader";
 import ShowExpenditures from "@/features/crud/components/show-expt/ShowExpenditures";
 import ViewAllButton from "@/features/crud/components/show-expt/ViewAllButton";
@@ -7,14 +14,11 @@ const HomePage = () => {
 
   return (
     <div className="HomePage">
-      {/* <div className="flex-grow"> */}
-        <Header hasBack={false} />
-        <ExpenditureHeader isHome/>
-        <ShowExpenditures isHome />
-        {/* <div className="m-auto max-w-lg my-10 px-6"> */}
-          <ViewAllButton />
-        {/* </div> */}
-      {/* </div> */}
+        <Header>
+          <ExpenditureHeader isHome/>
+          <ShowExpenditures isHome />
+            <ViewAllButton />
+        </Header>
     </div>
   );
 };

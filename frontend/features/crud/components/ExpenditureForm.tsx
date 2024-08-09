@@ -12,7 +12,7 @@ import useForm from "../hooks/useForm";
 // HARD-CODED. REMOVE LATER
 const REDIRECT_PATH = "/home";
 
-const ExpenditureForm = ({ isEdit = false, exptId = "", handleUpdate, handleEditClose }: { isEdit: boolean, exptId?: string, handleUpdate: () => void, handleEditClose: () => void }) => {
+const ExpenditureForm = ({ isEdit = false, exptId = "", handleUpdate = () => {}, handleEditClose = () => {}}: { isEdit?: boolean, exptId?: string, handleUpdate?: () => void, handleEditClose?: () => void }) => {
   const expenditureCategories = [
     { value: "dining", label: "Dining" },
     { value: "entertainment", label: "Entertainment/Leisure" },
@@ -49,6 +49,12 @@ const ExpenditureForm = ({ isEdit = false, exptId = "", handleUpdate, handleEdit
   const [categories, setCategories] = useState(expenditureCategories);
 
   // useEffect
+  // such that this happens whenever `data.transaction_type` changes
+  useEffect(() => {
+    setCategories(data.transaction_type === "expenditure" ? expenditureCategories : earningCategories);
+  }, [data.transaction_type]);
+
+  // useEffect
   if (isEdit) {
     // so this only happens on initial render
     useEffect(() => {
@@ -57,86 +63,8 @@ const ExpenditureForm = ({ isEdit = false, exptId = "", handleUpdate, handleEdit
     }, []);
   };
 
-  // such that this happens whenever `data.transaction_type` changes
-  useEffect(() => {
-    setCategories(data.transaction_type === "expenditure" ? expenditureCategories : earningCategories);
-  }, [data.transaction_type]);
-
   // handlers
-  const { handleChange } = useForm(setData, data, setCategories, expenditureCategories, earningCategories);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (data.transaction_type === "expenditure") {
-      data.amount = -Math.abs(data.amount);
-    } else {
-      data.amount = Math.abs(data.amount);
-    };
-
-    // // convert userId to number
-    // data.user_id = +data.user_id;
-
-    console.log("Data to be sent:", data);
-
-    const postData = async () => {
-      try {
-        const res = await axios.post(`http://localhost:8000/api/expt/user/${userId}`, data);
-
-        // reset `data` to initial state
-        setData({
-          title: "",
-          date: "",
-          amount: 0,
-          category: "others",
-          description: "",
-          transaction_type: "expenditure",
-          user_id: +userId,
-        });
-
-        console.log("Successfully created expenditure", res);
-
-        router.push(REDIRECT_PATH);
-
-      } catch (err) {
-        console.log(err);
-      };
-    };
-
-    const putData = async () => {
-      console.log(`Sending PUT request for id ${exptId}`);
-
-      try {
-        const res = await axios.put(`http://localhost:8000/api/expt/user/${userId}/${exptId}`, data);
-
-        console.log(`Successfully updated id ${exptId}`, res);
-
-        // reset `data` to initial state
-        setData({
-          title: "",
-          date: "",
-          amount: 0,
-          category: "others",
-          description: "",
-          transaction_type: "expenditure",
-          user_id: +userId,
-        });
-
-        handleUpdate(); // PUT HERE INSTEAD OF BELOW `onSubmit`, so that state of `update` changes only after the above `await` has is done.
-
-        handleEditClose();
-
-      } catch (err) {
-        console.log(`Failed to update exptId ${exptId}`, err);
-      };
-    };
-
-    if (isEdit) {
-      putData();
-    } else {
-      postData();
-    };
-  };
+  const { handleChange, handleSubmit } = useForm(setData, data, userId, exptId, isEdit, handleUpdate, handleEditClose);
 
   return (
     <div className="ExpenditureForm">

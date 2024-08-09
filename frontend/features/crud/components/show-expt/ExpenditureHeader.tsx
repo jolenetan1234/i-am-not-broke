@@ -5,28 +5,16 @@ import CreateTransactionButton from "./CreateTransactionButton";
 const ExpenditureHeader = ({ isHome = false }) => {
   return (
     <div className="ExpenditureHeader">
-        {/* outer, bigger flex box */}
         <div className="flex mb-2 justify-between">
+            <div className="Transactions">
+            {isHome ? (
+                <strong className="dark:text-white">Transactions</strong>
+            ) : (
+                <strong className="dark:text-white">All Transactions</strong>
+            )}
+            </div>
 
-            {/* adjust width of CHILD, not entire outer flexbox */}
-            {/* <div className="w-4/5 m-auto"> */}
-                
-                {/* even inner, smaller flex box */}
-                    {/* <div className="flex"> */}
-                        <div className="Transactions">
-                        {isHome ? (
-                            <strong className="dark:text-white">Transactions</strong>
-                        ) : (
-                            <strong className="dark:text-white">All Transactions</strong>
-                        )}
-                        </div>
-
-                        <CreateTransactionButton />
-
-                    {/* </div> */}
-
-            {/* </div> */}
-
+            <CreateTransactionButton />
         </div>
 
     </div>

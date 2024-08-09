@@ -1,11 +1,12 @@
-import Header from "@/components/Header.tsx";
+import Header from "@/layouts/Header";
 import CreateForm from "@/features/crud/components/create-form/CreateForm"
 
 const CreateExpenditureForm = () => {
   return (
     <div className="CreateExpenditureForm">
-      <Header />
+      <Header>
       <CreateForm />
+      </Header>
     </div>
   );
 };

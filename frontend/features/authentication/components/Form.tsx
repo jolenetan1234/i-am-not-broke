@@ -24,7 +24,7 @@ const Form = ({ isSignup = false, handleSignupClose = () => {} }: { isSignup?: b
         
         {/* <div className="w-4/5 m-auto"> */}
 
-            { isSignup ? <CloseButton onClick={handleSignupClose} />: "" }
+            {/* { isSignup ? <CloseButton onClick={handleSignupClose} />: "" } */}
 
             <form
             className="form"

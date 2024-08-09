@@ -4,7 +4,7 @@ import Form from './Form';
 
 const SignupForm = ({ handleSignupClose }: { handleSignupClose: () => void }) => {
   return (
-    <FloatingComponent>
+    <FloatingComponent handleClose={handleSignupClose}>
       <Form handleSignupClose={handleSignupClose} isSignup />
     </FloatingComponent>
   )

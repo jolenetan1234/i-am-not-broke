@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Header from "@/components/Header";
+import Header from "@/layouts/Header";
 import LoginForm from "../components/LoginForm";
 import SignupButton from "@/features/authentication/components/SignupButton";
 import SignupForm from "@/features/authentication/components/SignupForm";
@@ -11,10 +10,11 @@ const AuthPage = () => {
 
   return (
     <div className="AuthPage">
-        <Header />
-        <LoginForm />
-        <SignupButton onClick={handleSignupOpen}/>
-        { signupOpen ? <SignupForm handleSignupClose={handleSignupClose}/> : "" }
+        <Header hasLogout={false}>
+          <LoginForm />
+          <SignupButton onClick={handleSignupOpen}/>
+          { signupOpen ? <SignupForm handleSignupClose={handleSignupClose}/> : "" }
+        </Header>
     </div>
   );
 };

@@ -11,7 +11,7 @@ const userAuthRouter = require("./routes/userAuth.js");
 
 // const runDbMigrations = require("./db/migrations.js");
 // import test from "./migrations/test.js";
-const app= express();
+const app = express();
 const PORT = process.env.PORT || 8000;
 
 // initialise middleware

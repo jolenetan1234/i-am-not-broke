@@ -68,8 +68,6 @@ const useForm = (isSignup: boolean = false, handleSignupClose: (() => void) = ((
 
             } catch (err) {
                 if (axios.isAxiosError(err)) {
-                    // I NEED FIX THIS LATER LMAO
-                    // console.log(err.response?.data.message);
                     setErrorMessage(err.response?.data.message);
                     console.log("Failed to log in user", err);
                 } else {

@@ -6,7 +6,9 @@ import crudApi from "../api/crudApi"
 // types
 import { Expenditure } from "../types/expenditure";
 
-const useFetchData = async (userId: string, isHome: boolean = false, setExpenditures: Dispatch<SetStateAction<Expenditure[]>>) => {
+const useFetchData = async (/*userId: string,*/ isHome: boolean = false, setExpenditures: Dispatch<SetStateAction<Expenditure[]>>) => {
+
+    const userId = localStorage.getItem("userId") || "";
 
     const { getAllExpt } = crudApi(userId);
 
@@ -19,7 +21,8 @@ const useFetchData = async (userId: string, isHome: boolean = false, setExpendit
             setExpenditures(res.data.reverse());
         };
     };
-   
+
+    return res;
 };
 
 export default useFetchData;
