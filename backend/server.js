@@ -22,19 +22,25 @@ app.use(cookieParser());
 // routes
 app.use("/api/expt/admin", adminExpenditureRouter);
 app.use("/api/expt/user", userExpenditureRouter);
-app.use("/api/month", monthRouter);
+// app.use("/api/month", monthRouter);
 app.use("/api/user", userRouter);
 app.use("/api/auth", userAuthRouter);
 
 const start = async () => {
-    // check database connection
+    /**
+     * check database connection
+     */
+    console.log("sequelize authenticating");
     db.sequelize.authenticate().then(() => {
     console.log("Successfully connected to database i_am_not_broke");
     }).catch((err) => {
     console.log(err);
     });
 
-    // sync database (DEVELOPMENT ONLY)
+    /**
+     * sync database
+     * @params ({ force:true }) FOR DEVELOPMENT ONLY.
+     */
     db.sequelize.sync({ force: true })
     .then(() => {
         console.log("database re-synced");
@@ -43,7 +49,9 @@ const start = async () => {
         console.log(err);
     });
 
-    // listen
+    /**
+     * listen for requests
+     */
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });

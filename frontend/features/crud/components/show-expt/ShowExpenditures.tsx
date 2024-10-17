@@ -30,7 +30,7 @@ const ShowExpenditures = ({ isHome = false }) => {
 
     if (userId) {
         useEffect(() => {
-            useFetchData(userId, isHome, setExpenditures);
+            useFetchData(/*userId,*/ isHome, setExpenditures);
         }, [del, update]);
 
         const { handleDelete, handleDeleteClose, handleDeleteConfirm } = useDelete(userId, del, setDeleteOpen, setExptId, setDel);

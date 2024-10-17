@@ -15,6 +15,7 @@ const crudApi = (userId: string) => {
 
         try {
             const res = await axios.get(`${API_BASE_URL}/api/expt/user/${userId}`);
+            // const res = await axios.get(`${API_BASE_URL}/api/expt/admin`);
             console.log("Succcessfully GET expenditures", res);
             return res;
         } catch (err) {
