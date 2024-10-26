@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8000;
 
 // initialise middleware
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: true, credentials: true /* allow cookies to be sent */}));
 app.use(cookieParser());
 
 // routes

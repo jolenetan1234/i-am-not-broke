@@ -6,7 +6,7 @@ const useLogout = () => {
     const router = useRouter();
 
     const handleLogout = () => {
-        localStorage.removeItem("userId");
+        localStorage.clear();
         router.push(REDIRECT_PATH);
     };
 
