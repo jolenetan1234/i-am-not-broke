@@ -41,7 +41,7 @@ const start = async () => {
      * sync database
      * @params ({ force:true }) FOR DEVELOPMENT ONLY.
      */
-    db.sequelize.sync({ force: true })
+    db.sequelize.sync()
     .then(() => {
         console.log("database re-synced");
     })
