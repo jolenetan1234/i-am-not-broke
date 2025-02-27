@@ -26,7 +26,6 @@ const useForm = (
     const { postExpt, putExpt } = crudApi(userId);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        console.log(data);
         setData((data) => ({ ...data, [e.target.name]: e.target.value }));
     };
 

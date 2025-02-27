@@ -7,19 +7,26 @@ import { NewExpenditure } from "../types/expenditure";
 // DOESN'T WORK IDKY
 // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+const HEADERS = {
+    "token": localStorage.getItem("token"),
+}
 
 const crudApi = (userId: string) => {
 
     const getAllExpt = async () => {
         console.log(`GET ${API_BASE_URL}/api/expt/user/${userId}`);
+        console.log("HEADERS: ", HEADERS);
 
         try {
-            const res = await axios.get(`${API_BASE_URL}/api/expt/user/${userId}`);
+            const res = await axios.get(`${API_BASE_URL}/api/expt/user/${userId}`, {
+                withCredentials: true,
+                headers: HEADERS,
+            });
             // const res = await axios.get(`${API_BASE_URL}/api/expt/admin`);
             console.log("Succcessfully GET expenditures", res);
             return res;
         } catch (err) {
-            console.log("Failed to GET expenditures", err);
+            console.log(`Failed to GET expenditures for user ${userId}`, err);
         };
     };
 
@@ -27,7 +34,11 @@ const crudApi = (userId: string) => {
         console.log(`DELETE ${API_BASE_URL}/api/expt/user/${userId}/${exptId}`);
 
         try {
-            const res = await axios.delete(`${API_BASE_URL}/api/expt/user/${userId}/${exptId}`);   
+            const res = await axios.delete(`${API_BASE_URL}/api/expt/user/${userId}/${exptId}`,
+                {
+                    headers: HEADERS,
+                }
+            );   
             console.log(`Successfully DELETE expenditure id ${exptId}`, res);
             return res;
         } catch (err) {
@@ -39,7 +50,11 @@ const crudApi = (userId: string) => {
         console.log(`GET http://localhost:8000/api/expt/user/${userId}/${exptId}`);
         
         try {
-            const res = await axios.get(`http://localhost:8000/api/expt/user/${userId}/${exptId}`);
+            const res = await axios.get(`${API_BASE_URL}/api/expt/user/${userId}/${exptId}`,
+                {
+                    headers: HEADERS,
+                }
+            );
             console.log(`Axios successfully GET data for exptId ${exptId}`, res);
             return res;
         } catch (err) {
@@ -51,7 +66,11 @@ const crudApi = (userId: string) => {
         console.log(`POST http://localhost:8000/api/expt/user/${userId}`);
 
         try {
-            const res = await axios.post(`http://localhost:8000/api/expt/user/${userId}`, data);
+            const res = await axios.post(`http://localhost:8000/api/expt/user/${userId}`, data,
+                {
+                    headers: HEADERS,
+                }
+            );
             console.log(`Successfully created expenditure`, res);
             return res;
         } catch (err) {
@@ -63,7 +82,11 @@ const crudApi = (userId: string) => {
         console.log(`Sending PUT request for userId ${userId} for exptId ${exptId}`);
 
         try {
-            const res = await axios.put(`http://localhost:8000/api/expt/user/${userId}/${exptId}`, data);
+            const res = await axios.put(`http://localhost:8000/api/expt/user/${userId}/${exptId}`, data, 
+                {
+                    headers: HEADERS,
+                }
+            );
             console.log(`Successfully updated id ${exptId}`, res);
             return res;
         } catch (err) {

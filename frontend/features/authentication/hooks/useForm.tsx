@@ -22,7 +22,6 @@ const useForm = (isSignup: boolean = false, handleSignupClose: (() => void) = ((
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // sets state of `data`
         setData((data) => ({ ...data, [e.target.name]: e.target.value }));
-        console.log(`${e.target.name}: ${e.target.value}`);
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +30,6 @@ const useForm = (isSignup: boolean = false, handleSignupClose: (() => void) = ((
         console.log("Data to be submitted", data);
 
         const signupUser = async () => {
-            console.log(SIGNUP_REQ);
 
             try {
                 const res = await axios.post(SIGNUP_REQ, data);
@@ -63,6 +61,10 @@ const useForm = (isSignup: boolean = false, handleSignupClose: (() => void) = ((
 
                 useLocalStorage("userId", userId);
 
+                // store token in localStorage
+                console.log("TOKEN", res.data.token);
+                useLocalStorage("token", res.data.token);
+
                 // redirect to home
                 router.push(REDIRECT_PATH);
 
@@ -80,7 +82,7 @@ const useForm = (isSignup: boolean = false, handleSignupClose: (() => void) = ((
                     email: "",
                     password: "",
                 });
-            }
+            };
         };
 
         if (isSignup) {

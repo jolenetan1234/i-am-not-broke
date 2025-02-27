@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8000;
 
 // initialise middleware
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: true, credentials: true /* allow cookies to be sent */}));
 app.use(cookieParser());
 
 // routes
@@ -41,7 +41,7 @@ const start = async () => {
      * sync database
      * @params ({ force:true }) FOR DEVELOPMENT ONLY.
      */
-    db.sequelize.sync({ force: true })
+    db.sequelize.sync()
     .then(() => {
         console.log("database re-synced");
     })

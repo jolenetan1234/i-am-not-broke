@@ -77,7 +77,7 @@ const loginUser = async (req, res) => {
                 console.log("TOKEN:", token);
 
                 // send user data to frontend
-                return res.status(201).json({ message: "Successfully logged in", user} );
+                return res.status(201).json({ message: "Successfully logged in", user: user, token: token } );
             } else {
                 return res.status(401).json({ message: "Authentication failed: wrong password" });
             };
